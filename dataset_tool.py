@@ -750,7 +750,13 @@ def create_from_images_raw(tfrecord_dir, image_dir, shuffle, res_log2=7, resize=
     print(f"detected {len(image_filenames)} images ...")
     if len(image_filenames) == 0:
         error("No input images found")
+
     img = np.asarray(PIL.Image.open(image_filenames[0]))
+    if resize is not None:
+        size = int(2 ** resize)
+        #img = imresize(img, (size, size))
+        img = np.array(PIL.Image.fromarray(img).resize((size, size)))
+
     #resolution = img.shape[0]
     channels = img.shape[2] if img.ndim == 3 else 1
 
