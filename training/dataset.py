@@ -58,9 +58,9 @@ def parse_tfrecord_np_raw(record):
     shape = ex.features.feature[
         "shape"
     ].int64_list.value  # temporary pylint workaround # pylint: disable=no-member
-    img = ex.features.feature["img"].bytes_list.value[
-        0
-    ]  # temporary pylint workaround # pylint: disable=no-member
+    # img = ex.features.feature["img"].bytes_list.value[
+    #     0
+    # ]  # temporary pylint workaround # pylint: disable=no-member
     return shape
 
 #----------------------------------------------------------------------------
