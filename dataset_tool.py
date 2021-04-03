@@ -731,23 +731,23 @@ def create_from_images(tfrecord_dir, image_dir, shuffle, res_log2=7, resize=None
         for idx in range(order.size):
             if idx % 1000 == 0:
                 print ("added images", idx)
-            img = np.asarray(PIL.Image.open(image_filenames[order[idx]]))
-            if resize is not None:
-                size = int(2 ** resize)
-                #img = imresize(img, (size, size))
-                img = np.array(PIL.Image.fromarray(img).resize((size, size)))
-            if channels == 1:
-                img = img[np.newaxis, :, :]  # HW => CHW
-            else:
-                img = img.transpose([2, 0, 1])  # HWC => CHW
-            if img.shape[0] > 3:
-                img = img[:3, ...]
-
             try:
-                tfr.add_image(img)
+                img = np.asarray(PIL.Image.open(image_filenames[order[idx]]))
+                if resize is not None:
+                    size = int(2 ** resize)
+                    #img = imresize(img, (size, size))
+                    img = np.array(PIL.Image.fromarray(img).resize((size, size)))
+                if channels == 1:
+                    img = img[np.newaxis, :, :]  # HW => CHW
+                else:
+                    img = img.transpose([2, 0, 1])  # HWC => CHW
+                if img.shape[0] > 3:
+                    img = img[:3, ...]
+
+                    tfr.add_image(img)
             except Exception:
                 print ('error when adding', image_filenames[order[idx]])
-                # continue
+                continue
 
 def create_from_images_raw(tfrecord_dir, image_dir, shuffle, res_log2=7, resize=None):
     print('Loading images from "%s"' % image_dir)
