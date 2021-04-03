@@ -747,7 +747,7 @@ def create_from_images(tfrecord_dir, image_dir, shuffle, res_log2=7, resize=None
                 tfr.add_image(img)
             except Exception:
                 print ('error when adding', image_filenames[order[idx]])
-                continue
+                # continue
 
 def create_from_images_raw(tfrecord_dir, image_dir, shuffle, res_log2=7, resize=None):
     print('Loading images from "%s"' % image_dir)
